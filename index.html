@@ -22,12 +22,12 @@
               return c.substring(name.length, c.length);
           }
         }
-        return -1;
+        return "";
       }
 
       function checkCookie(){
         var backNum = getCookie("backNum");
-        if(backNum != -1){
+        if(backNum != ""){
           setBack(backNum); 
         }else{
           var num=Math.floor((Math.random() * 4) + 1);     
@@ -38,7 +38,8 @@
     </script>
     <script>
       function setBack(colNum){
-        switch(colNum){
+        num = parseInt(colNum);
+        switch(num){
               case 1:
                 document.getElementById("change").innerHTML = "Security: Unsecure";
                 document.getElementById("b").style.background = "#f41111";
