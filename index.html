@@ -3,38 +3,75 @@
   <head>
     <title>Bitch</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script id="click">
-      function putText(){
-          var num = Math.floor((Math.random()) * 4) + 1;
-          setTimeout(function(){ 
-            switch(num){
+    <script id="c">
+      function setCookie(cname, cvalue, exdays){
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires=" + d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+      }
+
+      function getCookie(cname){
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i=0;i<ca.length;i++){
+          var c = ca[i];
+
+          if(c.indexOf(name)==0){
+              return c.substring(name.length, c.length);
+          }
+        }
+        return -1;
+      }
+
+      function checkCookie(){
+        var backNum = getCookie("backNum");
+        if(backNum != -1){
+          setBack(backNum); 
+        }else{
+          var num=Math.floor((Math.random() * 4) + 1);     
+          setCookie("backNum", num, 365);
+          setBack(num);
+        }
+      }
+    </script>
+    <script>
+      function setBack(colNum){
+        switch(colNum){
               case 1:
                 document.getElementById("change").innerHTML = "Security: Unsecure";
-                document.body.style.backgroundColor = #dd251f;
+                document.getElementById("b").style.background = "#f41111";
                 break;
               case 2:
                 document.getElementById("change").innerHTML = "Security: Moderate";
-                document.body.style.backgroundColor = #deef1f;
+                document.getElementById("b").style.background = "#ffaf0f";
                 break;
               case 3:
                 document.getElementById("change").innerHTML = "Security: Good";
-                document.body.style.backgroundColor = #88ed1c;
+                document.getElementById("b").style.background = "#eef911";
                 break;
               case 4:
                 document.getElementById("change").innerHTML = "Security: Excellent";
-                document.body.style.backgroundColor = #1137f4;
+                document.getElementById("b").style.background = "#59ed23";
                 break;
               default:
                 break;
               }
-            }, 3000);
+      }
+    </script>
+    <script id="click">
+      function putText(){
+          setTimeout(function(){ 
+            checkCookie();
+          }, 3000);
       }
     </script>
   </head>
 
-  <body>
+  <body id="b">
     <div>
-      <button>Analyze</button>
+      <button onclick="putText()">Analyze</button>
       <p id="change"></p>
     </div>
   </body>
